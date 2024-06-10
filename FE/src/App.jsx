@@ -7,7 +7,7 @@ import { io } from 'socket.io-client';
 const socket = io("http://localhost:3000/");
 function App() {
   const [logs, setLogs] = useState([]);
-  const [data,setData]=useState();
+  const [data,setData]=useState([]);
 
   const fetchData = () => {
     fetch('https://realtimemon-1.onrender.com')
