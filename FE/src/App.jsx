@@ -37,6 +37,18 @@ useEffect(() => {
   return (
     <>
      <h1>LOG Dashboard</h1>
+     {data.map((ele)=>{
+       return(
+        <div>
+          <h5 >{ele.name}</h5>
+          <h5 >{ele.score}</h5>
+          <h5 >{ele.age}</h5>
+          <h5 >{ele.city}</h5>
+          <h5>{ele.gender}</h5>
+        </div>
+         
+       )
+     })}
      <ul>
       {logs.map((log,index)=>{
         return(
