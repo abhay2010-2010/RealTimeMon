@@ -10,7 +10,7 @@ function App() {
   const [data,setData]=useState();
 
   const fetchData = () => {
-    fetch('')
+    fetch('https://realtimemon-1.onrender.com')
         .then(res => res.json())
         .then(result => {
             setData(result);
