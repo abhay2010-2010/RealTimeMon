@@ -7,9 +7,22 @@ import { io } from 'socket.io-client';
 const socket = io("http://localhost:3000/");
 function App() {
   const [logs, setLogs] = useState([]);
-  const [data,setadata]=useState();
+  const [data,setData]=useState();
 
-fet
+  const fetchData = () => {
+    fetch('')
+        .then(res => res.json())
+        .then(result => {
+            setData(result);
+            console.log(result);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}
+useEffect(() => {
+    fetchData();
+}, []);
 
   useEffect(() => {
     socket.on("logs", (data) => {
