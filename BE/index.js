@@ -8,7 +8,14 @@ const { dbConnect } = require('./dbconnect');
 const { Logs } = require('./schema');
 
 
+
 const app = express();
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://real-time-mon.vercel.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+  });
 const corsOptions = {
     origin: 'https://real-time-mon.vercel.app',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
