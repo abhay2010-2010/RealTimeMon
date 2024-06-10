@@ -2,32 +2,19 @@ const express = require('express');
 const http = require("http");
 const socketio = require("socket.io");
 const fs = require("fs");
-const cors = require("cors");
 const cron = require("node-cron");
 const { dbConnect } = require('./dbconnect');
 const { Logs } = require('./schema');
 
-
-
 const app = express();
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://real-time-mon.vercel.app');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-  });
-const corsOptions = {
-    origin: 'https://real-time-mon.vercel.app',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }
-  
-  app.use(cors(corsOptions));
-
-
 
 const server = http.createServer(app);
-const io = socketio(server);
-
+const io = socketio(server, {
+  cors: {
+    origin: ['https://real-time-mon.vercel.app', 'http://localhost:5173'],
+    methods: ["GET", "POST"]
+  }
+});
 
 function readFileChunks(filePath) {
     const readStream = fs.createReadStream(filePath);
@@ -62,7 +49,6 @@ cron.schedule('0 0 12 * *', () => {
    readFileChunks();
 });
 
-
 server.listen(3000, async() => {
     try {
         dbConnect;
@@ -70,5 +56,4 @@ server.listen(3000, async() => {
     } catch (error) {
         console.log(error);
     }
-    
 });
