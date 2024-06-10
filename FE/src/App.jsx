@@ -10,16 +10,21 @@ function App() {
   const [data,setData]=useState([]);
 
   const fetchData = () => {
-    fetch('https://realtimemon-1.onrender.com')
-        .then(res => res.json())
-        .then(result => {
-            setData(result);
-            console.log(result);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-}
+    fetch('https://realtimemon-1.onrender.com', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(result => {
+        setData(result);
+        console.log(result);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
 useEffect(() => {
     fetchData();
 }, []);
